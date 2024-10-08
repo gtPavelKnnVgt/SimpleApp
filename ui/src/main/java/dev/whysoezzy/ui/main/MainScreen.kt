@@ -12,7 +12,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -36,11 +35,15 @@ import dev.whysoezzy.ui.R
 import dev.whysoezzy.ui.details.DetailsScreenRoute
 import dev.whysoezzy.ui.main.vm.MainState
 import dev.whysoezzy.ui.main.vm.MainViewModel
+import dev.whysoezzy.ui.navigation.Screens
 import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MainScreen(navController: NavController, viewModel: MainViewModel = koinViewModel()) {
+fun MainScreen(
+    navController: NavController,
+    viewModel: MainViewModel = koinViewModel()
+) {
     val state by viewModel.state.collectAsState()
     Column {
         TopAppBar(
@@ -120,8 +123,11 @@ private fun ElementRow(navController: NavController, element: ListElement) {
                 style = MaterialTheme.typography.titleMedium
             )
             Button(
-                onClick = { /*TODO*/ },
-                colors = ButtonDefaults.outlinedButtonColors(
+                onClick = {
+                    navController.navigate(Screens.DETAIL.route)
+//                    + "${element.title}"
+                },
+                colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.onPrimaryContainer,
                     contentColor = MaterialTheme.colorScheme.onPrimary,
                     disabledContentColor = MaterialTheme.colorScheme.onSecondary,
