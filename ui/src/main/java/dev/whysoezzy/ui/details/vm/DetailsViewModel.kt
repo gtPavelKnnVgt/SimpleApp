@@ -4,7 +4,8 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
-import dev.whysoezzy.domain.repository.LocalStorageRepository
+import dev.whysoezzy.domain.data.repository.LocalStorageRepository
+import dev.whysoezzy.domain.entity.ListElementEntity
 import dev.whysoezzy.domain.usecase.ElementByIdUseCase
 import dev.whysoezzy.ui.details.DetailsScreenRoute
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -50,6 +51,10 @@ class DetailsViewModel(
             val result = useCase.execute(route.id)
             _state.emit(DetailsState.Content(result, storage.isMarkAsRead(route.id)))
         }
+    }
+
+    fun like(elementEntity: ListElementEntity, like: Boolean) {
+        storage.like(elementEntity.id, like)
     }
 
 }

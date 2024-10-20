@@ -5,9 +5,13 @@ import dev.whysoezzy.data.network.Api
 import dev.whysoezzy.data.repository.CacheRepositoryImpl
 import dev.whysoezzy.data.repository.ListElementRepositoryImpl
 import dev.whysoezzy.data.repository.LocalStorageRepositoryImpl
-import dev.whysoezzy.domain.repository.CacheRepository
-import dev.whysoezzy.domain.repository.ListElementRepository
-import dev.whysoezzy.domain.repository.LocalStorageRepository
+import dev.whysoezzy.domain.data.entity.ListElement
+import dev.whysoezzy.domain.data.repository.CacheRepository
+import dev.whysoezzy.domain.data.repository.ListElementRepository
+import dev.whysoezzy.domain.data.repository.LocalStorageRepository
+import dev.whysoezzy.domain.entity.ListElementEntity
+import dev.whysoezzy.domain.mapper.ListElementMapper
+import dev.whysoezzy.domain.mapper.Mapper
 import dev.whysoezzy.domain.usecase.ElementByIdUseCase
 import dev.whysoezzy.domain.usecase.ListElementUseCase
 import dev.whysoezzy.ui.details.vm.DetailsViewModel
@@ -31,9 +35,10 @@ val appModule = module {
     single<LocalStorageRepository> { LocalStorageRepositoryImpl(get()) }
     single<CacheRepository> { CacheRepositoryImpl() }
     single<ListElementRepository> { ListElementRepositoryImpl() }
-    single { ListElementUseCase(get()) }
-    single { ElementByIdUseCase(get(), get()) }
-    viewModel { MainViewModel(get(), get()) }
-    viewModel { DetailsViewModel(get(),get(),get()) }
+    single { ListElementUseCase(get(), get()) }
+    single { ElementByIdUseCase(get(), get(), get()) }
+    single<Mapper<ListElement, ListElementEntity>> { ListElementMapper(get()) }
+    viewModel { MainViewModel(get(), get(),get()) }
+    viewModel { DetailsViewModel(get(), get(), get()) }
 
 }

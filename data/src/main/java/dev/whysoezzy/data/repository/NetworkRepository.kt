@@ -2,9 +2,9 @@ package dev.whysoezzy.data.repository
 
 import android.content.res.Resources
 import dev.whysoezzy.data.network.Api
-import dev.whysoezzy.domain.entity.ListElement
-import dev.whysoezzy.domain.repository.CacheRepository
-import dev.whysoezzy.domain.repository.ListElementRepository
+import dev.whysoezzy.domain.data.entity.ListElement
+import dev.whysoezzy.domain.data.repository.CacheRepository
+import dev.whysoezzy.domain.data.repository.ListElementRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

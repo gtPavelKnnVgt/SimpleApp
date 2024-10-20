@@ -1,6 +1,6 @@
 package dev.whysoezzy.data.repository
 
-import dev.whysoezzy.domain.repository.CacheRepository
+import dev.whysoezzy.domain.data.repository.CacheRepository
 
 class CacheRepositoryImpl : CacheRepository {
 

@@ -1,4 +1,4 @@
-package dev.whysoezzy.domain.repository
+package dev.whysoezzy.domain.data.repository
 
 interface CacheRepository {
     suspend fun <T> getAndSave(

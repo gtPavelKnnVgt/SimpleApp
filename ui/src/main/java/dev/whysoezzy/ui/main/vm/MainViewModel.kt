@@ -4,6 +4,8 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
+import dev.whysoezzy.domain.data.repository.LocalStorageRepository
+import dev.whysoezzy.domain.entity.ListElementEntity
 import dev.whysoezzy.domain.usecase.ListElementUseCase
 import dev.whysoezzy.ui.main.MainScreenRoute
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -14,7 +16,8 @@ import timber.log.Timber
 
 class MainViewModel(
     private val useCase: ListElementUseCase,
-    handle: SavedStateHandle
+    private val localStorageRepository: LocalStorageRepository,
+    private val handle: SavedStateHandle
 ) : ViewModel() {
     private val _state = MutableStateFlow<MainState>(MainState.Loading)
     val state: StateFlow<MainState>
@@ -32,5 +35,9 @@ class MainViewModel(
             _state.emit(MainState.Content(result))
         }
         Timber.e(handle.toRoute<MainScreenRoute>().toString())
+    }
+
+    fun like(elementEntity: ListElementEntity,like: Boolean){
+        localStorageRepository.like(elementEntity.id,like)
     }
 }

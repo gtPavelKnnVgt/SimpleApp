@@ -1,6 +1,6 @@
-package dev.whysoezzy.domain.repository
+package dev.whysoezzy.domain.data.repository
 
-import dev.whysoezzy.domain.entity.ListElement
+import dev.whysoezzy.domain.data.entity.ListElement
 
 interface ListElementRepository {
     suspend fun getElementList(): List<ListElement>

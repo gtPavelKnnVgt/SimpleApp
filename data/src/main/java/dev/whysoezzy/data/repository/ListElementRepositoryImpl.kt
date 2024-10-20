@@ -1,8 +1,8 @@
 package dev.whysoezzy.data.repository
 
-import dev.whysoezzy.domain.entity.ElementButton
-import dev.whysoezzy.domain.entity.ListElement
-import dev.whysoezzy.domain.repository.ListElementRepository
+import dev.whysoezzy.domain.data.entity.ElementButton
+import dev.whysoezzy.domain.data.entity.ListElement
+import dev.whysoezzy.domain.data.repository.ListElementRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

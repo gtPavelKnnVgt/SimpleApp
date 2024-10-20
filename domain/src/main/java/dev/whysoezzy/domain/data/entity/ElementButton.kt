@@ -1,4 +1,4 @@
-package dev.whysoezzy.domain.entity
+package dev.whysoezzy.domain.data.entity
 
 data class ElementButton(
     val title: String,
@@ -6,5 +6,5 @@ data class ElementButton(
 )
 
 enum class ButtonType{
-    DEFAULT,
+    DEFAULT
 }
