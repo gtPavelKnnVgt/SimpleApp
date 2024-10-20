@@ -16,7 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun Progress() {
+fun Progress(modifier: Modifier = Modifier) {
     var progressValue by remember { mutableFloatStateOf(0f) }
     val progress = animateFloatAsState(
         targetValue = progressValue, animationSpec = tween(
@@ -30,7 +30,7 @@ fun Progress() {
     }
     LinearProgressIndicator(
         progress = { progress.value },
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(top = 16.dp)
     )

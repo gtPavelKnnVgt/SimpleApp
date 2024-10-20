@@ -1,8 +1,6 @@
 package dev.whysoezzy.ui.main
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,20 +11,16 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -84,7 +78,7 @@ fun MainScreen(navController: NavController, viewModel: MainViewModel = koinView
 @Composable
 private fun LoadingState() {
     Box(modifier = Modifier.fillMaxSize()) {
-        CircularProgressIndicator(
+        Progress(
             modifier = Modifier
                 .align(Alignment.Center)
         )
@@ -121,7 +115,10 @@ private fun ElementRow(navController: NavController, element: ListElement) {
 
         Column(modifier = Modifier.padding(vertical = 8.dp, horizontal = 16.dp)) {
             Text(text = element.title, style = MaterialTheme.typography.headlineSmall)
-            Text(text = "${element.date} — ${element.country}", style = MaterialTheme.typography.titleMedium)
+            Text(
+                text = "${element.date} — ${element.country}",
+                style = MaterialTheme.typography.titleMedium
+            )
             Button(
                 onClick = { /*TODO*/ },
                 colors = ButtonDefaults.outlinedButtonColors(

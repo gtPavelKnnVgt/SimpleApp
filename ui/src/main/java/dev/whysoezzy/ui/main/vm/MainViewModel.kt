@@ -14,7 +14,7 @@ import timber.log.Timber
 
 class MainViewModel(
     private val useCase: ListElementUseCase,
-    private val handle: SavedStateHandle
+    handle: SavedStateHandle
 ) : ViewModel() {
     private val _state = MutableStateFlow<MainState>(MainState.Loading)
     val state: StateFlow<MainState>
