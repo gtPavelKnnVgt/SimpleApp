@@ -12,8 +12,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.example.compose.SimpleAppTheme
+import dev.whysoezzy.ui.details.DetailsScreen
+import dev.whysoezzy.ui.details.DetailsScreenRoute
 import dev.whysoezzy.ui.main.MainScreen
+import dev.whysoezzy.ui.main.MainScreenRoute
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,7 +28,15 @@ class MainActivity : ComponentActivity() {
         setContent {
             SimpleAppTheme {
                 Surface(modifier = Modifier.fillMaxSize()) {
-                    MainScreen()
+                    val navController = rememberNavController()
+                    NavHost(navController = navController, startDestination = MainScreenRoute){
+                        composable<MainScreenRoute>{
+                            MainScreen(navController = navController)
+                        }
+                        composable<DetailsScreenRoute>{
+                            DetailsScreen(navController)
+                        }
+                    }
                 }
             }
         }

@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.kotlinx.serialization)
 }
 
 android {
@@ -34,7 +35,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = "1.5.15"
     }
 }
 
@@ -59,4 +60,10 @@ dependencies {
     implementation(libs.coil.compose)
     implementation (libs.androidx.lifecycle.viewmodel.compose)
     implementation (libs.koin.androidx.compose)
+    implementation (libs.androidx.navigation.compose)
+
+    implementation(libs.serialization)
+
+    implementation(libs.timber)
+
 }
