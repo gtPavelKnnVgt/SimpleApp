@@ -89,10 +89,6 @@ fun MainScreen(
 private fun LoadingState() {
     Box(modifier = Modifier.fillMaxSize()) {
         CircularProgressIndicator()
-        //        Progress(
-//            modifier = Modifier
-//                .align(Alignment.Center)
-//        )
     }
 }
 

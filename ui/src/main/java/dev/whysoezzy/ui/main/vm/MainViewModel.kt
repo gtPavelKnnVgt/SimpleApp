@@ -30,14 +30,33 @@ class MainViewModel(
     }
 
     init {
-        viewModelScope.launch(context = exceptionHandler) {
-            val result = useCase.execute(Unit)
-            _state.emit(MainState.Content(result))
-        }
+        loadContent()
         Timber.e(handle.toRoute<MainScreenRoute>().toString())
     }
 
-    fun like(elementEntity: ListElementEntity,like: Boolean){
-        localStorageRepository.like(elementEntity.id,like)
+    private fun loadContent() {
+        viewModelScope.launch(context = exceptionHandler) {
+            val result = useCase.execute(Unit).map { element ->
+                element.copy(like = localStorageRepository.isLiked(element.id))
+            }
+            _state.emit(MainState.Content(result))
+        }
     }
+
+    fun like(elementEntity: ListElementEntity, like: Boolean) {
+        localStorageRepository.like(elementEntity.id, like)
+        val currentState = _state.value
+        if (currentState is MainState.Content) {
+            val updatedList = currentState.list.map { element ->
+                if (element.id == elementEntity.id) {
+                    element.copy(like = like)
+                } else {
+                    element
+                }
+            }
+            _state.value = MainState.Content(updatedList)
+        }
+    }
+
+
 }
