@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "dev.whysoezzy.ui"
+    namespace = "org.pavelknnv.ui"
     compileSdk = 34
 
     defaultConfig {

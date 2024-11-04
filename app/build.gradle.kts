@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "dev.whysoezzy.simpleapp"
+    namespace = "org.pavelknnv.simpleapp"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "dev.whysoezzy.simpleapp"
+        applicationId = "org.pavelknnv.simpleapp"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

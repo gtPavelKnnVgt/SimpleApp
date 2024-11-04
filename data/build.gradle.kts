@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "dev.whysoezzy.data"
+    namespace = "org.pavelknnv.data"
     compileSdk = 34
 
     defaultConfig {
