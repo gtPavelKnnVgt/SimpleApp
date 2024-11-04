@@ -54,7 +54,7 @@ class ListElementRepositoryImpl : ListElementRepository {
 
     override suspend fun getElementListById(id: Long): ListElement {
         return ListElement(
-            id = 0,
+            id = id,
             title = "Meetup",
             date = "20.04.2024",
             country = "Moscow",

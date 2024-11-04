@@ -1,17 +1,22 @@
 package dev.whysoezzy.ui.details
 
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -23,6 +28,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -86,7 +92,27 @@ fun DetailsScreen(navController: NavController, vm: DetailsViewModel = koinViewM
         ) {
             when (val st = state.value) {
                 is DetailsState.Content -> {
-                    ContentState(element = st.element, vm = vm)
+                    Column(
+                        modifier = Modifier.fillMaxSize(),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.spacedBy(16.dp)
+                    ) {
+                        Column {
+                            AsyncImage(
+                                modifier = Modifier
+                                    .size(200.dp)
+                                    .clip(RoundedCornerShape(16.dp)),
+                                model = st.element.image,
+                                contentDescription = null
+                            )
+                            Text(text = st.element.title, style = MaterialTheme.typography.titleLarge)
+                            Text(text = st.element.date, style = MaterialTheme.typography.bodyMedium)
+                            Text(text = st.element.country, style = MaterialTheme.typography.bodyMedium)
+                            Text(text = st.read.toString(), style = MaterialTheme.typography.bodyMedium)
+                            Progress(vm = vm)
+                        }
+
+                    }
                 }
 
                 is DetailsState.Error -> {
@@ -116,7 +142,6 @@ fun ContentState(
     element: ListElementEntity,
     vm: DetailsViewModel
 ) {
-    val isRead by vm.isRead.collectAsState()
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -138,16 +163,33 @@ fun ContentState(
             Text(text = element.title, style = MaterialTheme.typography.titleLarge)
             Text(text = element.date, style = MaterialTheme.typography.bodyMedium)
             Text(text = element.country, style = MaterialTheme.typography.bodyMedium)
-            if (isRead) {
-                Text(
-                    text = stringResource(R.string.read),
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = Color.Gray
-                )
-            }
+            Progress(vm = vm)
         }
 
     }
 }
 
 
+@Composable
+fun Progress(vm: DetailsViewModel) {
+    var progressValue by remember { mutableStateOf(0f) }
+    val progress = animateFloatAsState(
+        targetValue = progressValue,
+        animationSpec = tween(
+            durationMillis = 10_000,
+            easing = LinearEasing
+        ),
+        finishedListener = {
+            vm.markAsRead()
+        }
+    )
+    LinearProgressIndicator(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 16.dp),
+        progress = { progress.value }
+    )
+    LaunchedEffect(Unit) {
+        progressValue = 1f
+    }
+}

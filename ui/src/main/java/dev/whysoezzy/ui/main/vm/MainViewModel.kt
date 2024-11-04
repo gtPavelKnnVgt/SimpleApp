@@ -43,20 +43,12 @@ class MainViewModel(
         }
     }
 
-    fun like(elementEntity: ListElementEntity, like: Boolean) {
-        localStorageRepository.like(elementEntity.id, like)
-        val currentState = _state.value
-        if (currentState is MainState.Content) {
-            val updatedList = currentState.list.map { element ->
-                if (element.id == elementEntity.id) {
-                    element.copy(like = like)
-                } else {
-                    element
-                }
-            }
-            _state.value = MainState.Content(updatedList)
-        }
+    fun refreshContent(){
+        loadContent()
     }
 
-
+    fun like(elementEntity: ListElementEntity, like: Boolean) {
+        localStorageRepository.like(elementEntity.id, like)
+        loadContent()
+    }
 }

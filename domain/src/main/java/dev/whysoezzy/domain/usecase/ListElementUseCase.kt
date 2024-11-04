@@ -14,7 +14,6 @@ class ListElementUseCase(
 ) : UseCase<Unit, List<ListElementEntity>> {
     override suspend fun execute(data: Unit): List<ListElementEntity> =
         withContext(Dispatchers.Default) {
-            delay(500)
             return@withContext repository.getElementList().map {
                 elementMapper.map(it)
             }

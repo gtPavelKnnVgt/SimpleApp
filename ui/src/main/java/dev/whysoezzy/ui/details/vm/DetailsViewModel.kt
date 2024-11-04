@@ -24,10 +24,6 @@ class DetailsViewModel(
     val state: StateFlow<DetailsState>
         get() = _state
 
-
-    private val _isRead = MutableStateFlow(false)
-    val isRead: StateFlow<Boolean>
-        get() = _isRead
     private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         viewModelScope.launch {
             val title = when (val curState = _state.value) {
@@ -45,14 +41,8 @@ class DetailsViewModel(
     }
 
     fun markAsRead() {
-        viewModelScope.launch {
-            val route = savedStateHandle.toRoute<DetailsScreenRoute>()
-            delay(10000)
-            storage.markAsRead(route.id)
-            _isRead.value = true
-            loadContent()
-        }
-
+        val route = savedStateHandle.toRoute<DetailsScreenRoute>()
+        storage.markAsRead(route.id)
     }
 
     private fun loadContent() {
@@ -60,12 +50,12 @@ class DetailsViewModel(
             val route = savedStateHandle.toRoute<DetailsScreenRoute>()
             val result = useCase.execute(route.id)
             _state.emit(DetailsState.Content(result, storage.isMarkAsRead(route.id)))
-            _isRead.value = storage.isMarkAsRead(route.id)
         }
     }
 
     fun like(elementEntity: ListElementEntity, like: Boolean) {
         storage.like(elementEntity.id, like)
+        loadContent()
     }
 
 }
